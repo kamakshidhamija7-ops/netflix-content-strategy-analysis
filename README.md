@@ -1,3 +1,6 @@
 # Netflix Content Strategy & User Insight Analysis using SQL
 
-![Netflix Logo](netflix_logo_png.png)
+<p align="center">
+  <img src="netflix_logo.png" width="220"/>
+</p>
+
