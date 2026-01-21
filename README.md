@@ -1,1 +1,1 @@
-# netflix-content-strategy-analysis
+# Netflix Content Strategy & User Insight Analysis using SQL
