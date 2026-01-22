@@ -95,6 +95,24 @@ This analysis aims to answer the following business-driven questions:
 
 - Overall, Netflix’s content strategy demonstrates a balance between global scalability and localized production. Such a strategy allows the platform to cater to diverse audience preferences across regions.
 
+## 📊 Data Visualization
+
+### Movies vs TV Shows Trend by Year
+![Movies vs TV Shows Trend](visuals/Movies_vs_tvshows.png)
+
+### Netflix Content Growth Over Time
+![Content Growth](visuals/content_release_trend.png)
+
+### Top Genres on Netflix
+![Top Genres](visuals/Top_genres.png)
+
+### Top Content Producing Countries
+![Top Countries](visuals/content_producing_countries.png)
+
+## Insights from Data Visualization
+
+
+
 ## Conclusion
 
 This project demonstrates how SQL can be used to analyze large-scale content datasets and extract meaningful business insights.  
