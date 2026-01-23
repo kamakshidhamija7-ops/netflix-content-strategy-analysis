@@ -98,13 +98,13 @@ This analysis aims to answer the following business-driven questions:
 ## 📊 Data Visualization
 
 ### Movies vs TV Shows Trend by Year
-![Movies vs TV Shows Trend](visuals/Movies_vs_tvshows.png)
+![Movies vs TV Shows Trend](/Movies_vs_tvshows.png)
 
 ### Netflix Content Growth Over Time
-![Content Growth](visuals/content_release_trend.png)
+![Content Growth](/content_release_trend.png)
 
 ### Top Genres on Netflix
-![Top Genres](visuals/Top_genres.png)
+![Top Genres](/Top_genres.png)
 
 ### Top Content Producing Countries
 ![Top Countries](content_producing_countries.png)
