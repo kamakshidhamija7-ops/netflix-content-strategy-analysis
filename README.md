@@ -107,7 +107,7 @@ This analysis aims to answer the following business-driven questions:
 ![Top Genres](visuals/Top_genres.png)
 
 ### Top Content Producing Countries
-![Top Countries](visuals/content_producing_countries.png)
+![Top Countries](content_producing_countries.png)
 
 ## Insights from Data Visualization
 
