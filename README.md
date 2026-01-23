@@ -100,9 +100,6 @@ This analysis aims to answer the following business-driven questions:
 ### Movies vs TV Shows Trend by Year
 ![Movies vs TV Shows Trend](/Movies_vs_tvshows.png)
 
-### Netflix Content Growth Over Time
-![Content Growth](/content_release_trend.png)
-
 ### Top Genres on Netflix
 ![Top Genres](/Top_genres.png)
 
@@ -111,7 +108,17 @@ This analysis aims to answer the following business-driven questions:
 
 ## Insights from Data Visualization
 
+### Movies vs TV Shows Trend by Year
+- The visualization shows a sharp increase in Netflix content additions after 2015, indicating rapid platform expansion.  
+- Movies dominated the platform in earlier years, while TV shows grew significantly in later years, reflecting a strategic shift toward episodic and binge-watch content.
 
+### Top Genres on Netflix
+- Drama emerges as the most dominant genre on Netflix, highlighting strong audience preference for story-driven content.  
+- The presence of documentaries, stand-up comedy, and family-oriented content indicates Netflix’s strategy to diversify offerings across different audience segments.
+
+### Top Content Producing Countries
+- The United States contributes the largest share of Netflix content, followed by India and the United Kingdom.  
+- This distribution reflects Netflix’s focus on both established entertainment markets and high-growth regional audiences.
 
 ## Conclusion
 
