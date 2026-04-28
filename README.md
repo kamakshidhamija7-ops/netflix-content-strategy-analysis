@@ -6,7 +6,7 @@
 
 ## Project Overview
 
-This project focuses on analyzing Netflix’s content library using SQL to uncover insights using Microsoft Excel.
+This project focuses on analyzing Netflix’s content library using SQL to uncover insights and Microsoft Excel for data visualization.
 The objective is to understand trends in content types, genres, release patterns, and market contributions to support data-driven decision 
 making.
 
