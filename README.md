@@ -118,8 +118,6 @@ This project demonstrates how SQL-driven analysis can support strategic decision
 
 ## Conclusion
 
-## Conclusion
-
 This project demonstrates how SQL and Microsoft Excel can be effectively used to analyze large-scale content datasets and generate actionable business insights. By performing structured querying in PostgreSQL and visualizing trends using Excel, key patterns in Netflix’s content strategy were identified.
 
 The analysis revealed rapid content expansion after 2015, a strategic shift toward TV Shows, strong dominance of international and drama-based genres, and heavy reliance on major production markets like the United States and India.
