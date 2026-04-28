@@ -1,4 +1,4 @@
-# Netflix Content Strategy & User Insight Analysis using SQL
+# Netflix Content Strategy Analysis using SQL
 
 <p align="center">
   <img src="netflix.logo.jpg" width="900"/>
@@ -9,12 +9,6 @@
 This project focuses on analyzing Netflix’s content library using SQL to uncover insights using Microsoft Excel.
 The objective is to understand trends in content types, genres, release patterns, and market contributions to support data-driven decision 
 making.
-
-## Tools Used
-
-- PostgreSQL  
-- SQL  
-- Microsoft Excel 
 
 ## Problem Statement
 
@@ -49,6 +43,16 @@ The dataset was imported into PostgreSQL and structured into a single table cont
 
 Basic data cleaning was performed, including handling null values, standardizing formats, and splitting multi-value fields where required.
 
+## SQL Techniques Used
+
+- Data filtering using WHERE conditions  
+- Aggregations using COUNT, AVG, and GROUP BY  
+- Subqueries for layered analysis  
+- Common Table Expressions (CTEs)  
+- Window functions for ranking and comparison  
+- String functions for splitting multi-value columns  
+- Date functions for time-based analysis  
+
 ## Business Questions
 
 This analysis aims to answer the following business-driven questions:
@@ -69,60 +73,55 @@ This analysis aims to answer the following business-driven questions:
 14. Which time periods saw major spikes in Netflix content expansion?  
 15. What content characteristics are commonly associated with high-volume production?
 
-## SQL Concepts Used
-
-- Data filtering using WHERE conditions  
-- Aggregations using COUNT, AVG, and GROUP BY  
-- Subqueries for layered analysis  
-- Common Table Expressions (CTEs)  
-- Window functions for ranking and comparison  
-- String functions for splitting multi-value columns  
-- Date functions for time-based analysis  
-
-## Key Insights
-
-- Netflix’s content library is largely dominated by Movies; however, TV Shows have shown stronger growth in recent years. This indicates a gradual shift toward long-form and episodic storytelling.
-
-- A significant rise in content additions is observed after 2016, aligning with Netflix’s global expansion phase. This period reflects increased investment in original and international productions.
-
-- Drama and International content emerge as the most prominent genres on the platform. This highlights Netflix’s emphasis on emotionally driven narratives and region-specific storytelling.
-
-- The United States and India contribute the highest number of titles to Netflix’s catalog. This suggests a strategic focus on both established entertainment markets and rapidly growing audiences.
-
-- Mature audience ratings such as TV-MA dominate the platform’s content. This reflects Netflix’s preference for complex, bold, and adult-oriented themes.
-
-- Over time, Netflix has diversified its catalog by increasing regional and non-English content. This approach supports stronger global audience engagement and cultural representation.
-
-- Overall, Netflix’s content strategy demonstrates a balance between global scalability and localized production. Such a strategy allows the platform to cater to diverse audience preferences across regions.
-
-## 📊 Data Visualization
+## Analysis & Visual Insights
 
 ### Movies vs TV Shows Trend by Year
 ![Movies vs TV Shows Trend](/Movies_vs_tvshows.png)
 
+- Netflix content additions remained minimal until 2015, after which there is a sharp surge.
+- Movie additions peaked at around 700–750 titles per year, while TV Shows crossed approximately 400 titles, indicating aggressive content expansion.
+- While Movies dominated initially, the faster growth rate of TV Shows highlights a strategic shift toward episodic and binge-worthy content.
+
 ### Top Genres on Netflix
 ![Top Genres](/Top_genres.png)
+
+- International Drama leads with approximately 350+ titles, followed closely by Documentaries and Stand-Up Comedy.
+- Multiple genres such as Kids TV and Family Movies each contribute around 200+ titles, indicating diversified content offerings.
+- The distribution reflects Netflix’s strategy to balance high-demand genres with niche audience segments.
 
 ### Top Content Producing Countries
 ![Top Countries](content_producing_countries.png)
 
-## Insights from Data Visualization
+- The United States contributes over 50% of total content, making it the dominant production hub.
+- India follows with approximately 18%, while the United Kingdom contributes around 8% of total titles.
+- Other countries individually contribute less than 5%, showing a concentration of content production in a few key markets.
 
-### Movies vs TV Shows Trend by Year
-- The visualization shows a sharp increase in Netflix content additions after 2015, indicating rapid platform expansion.  
-- Movies dominated the platform in earlier years, while TV shows grew significantly in later years, reflecting a strategic shift toward episodic and binge-watch content.
+### Key Insights
 
-### Top Genres on Netflix
-- Drama emerges as the most dominant genre on Netflix, highlighting strong audience preference for story-driven content.  
-- The presence of documentaries, stand-up comedy, and family-oriented content indicates Netflix’s strategy to diversify offerings across different audience segments.
+- Netflix experienced rapid expansion after 2015, with content additions increasing multiple-fold, reflecting global scaling efforts.
+- There is a clear transition from movie-heavy content to increased investment in TV Shows, driven by engagement and retention strategies.
+- Content strategy is heavily centered around international and diverse genres to appeal to a global audience base.
+- The platform relies significantly on a few major markets (US, India), while gradually expanding into regional production.
+- Overall, Netflix is balancing large-scale global reach with localized storytelling to maximize audience engagement.
 
-### Top Content Producing Countries
-- The United States contributes the largest share of Netflix content, followed by India and the United Kingdom.  
-- This distribution reflects Netflix’s focus on both established entertainment markets and high-growth regional audiences.
+## Business Recommendations
+
+- Increase investment in TV Shows, as their growth trend (400+ titles annually) indicates higher engagement potential.
+- Continue expanding international content, especially in high-growth markets like India, to strengthen global reach.
+- Focus on high-performing genres such as International Drama (350+ titles) and Documentaries for better audience retention.
+- Reduce over-dependence on the US market (>50%) by diversifying production across more countries.
+- Use data-driven insights to tailor regional content strategies and improve market penetration.
+
+## Why This Project Matters
+
+This project demonstrates how SQL-driven analysis can support strategic decision-making in content platforms by identifying trends, audience preferences, and growth opportunities.
 
 ## Conclusion
 
-This project demonstrates how SQL can be used to analyze large-scale content datasets and extract meaningful business insights.  
-Through structured querying and analytical reasoning, key trends related to content strategy, audience targeting, and regional production were identified.  
-The findings highlight Netflix’s evolving focus on global expansion, mature audiences, and diversified content offerings.  
-Overall, this analysis showcases the practical application of SQL in supporting data-driven decision making.
+## Conclusion
+
+This project demonstrates how SQL and Microsoft Excel can be effectively used to analyze large-scale content datasets and generate actionable business insights. By performing structured querying in PostgreSQL and visualizing trends using Excel, key patterns in Netflix’s content strategy were identified.
+
+The analysis revealed rapid content expansion after 2015, a strategic shift toward TV Shows, strong dominance of international and drama-based genres, and heavy reliance on major production markets like the United States and India.
+
+These findings highlight Netflix’s focus on global scalability, audience engagement, and diversified content offerings. Overall, this project showcases the practical application of data analysis techniques in supporting data-driven decision making within the entertainment industry.
