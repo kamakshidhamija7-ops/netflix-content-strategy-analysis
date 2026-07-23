@@ -74,6 +74,13 @@ date_added vs. release_year: These fields answer different questions and were us
 
 Small-sample exclusions: Years with very few titles produce unstable percentages (e.g., a single title added in a year makes that year's "% share" swing to 0% or 100%). The following cutoffs were applied to trend-based charts:
 
+Analysis	Data included from
+- Movie/TV Show mix over time	- 2013 onward
+- Country share over time - 	2016 onward
+- Mature content share over time -	2011 onward
+- Movie runtime by release year -	2000 onward (grouped into 5-year bins)
+- TV Show seasons by release year -	2000 onward (grouped into 5-year bins)
+
 ## Business Questions and Analysis
 
 This analysis aims to answer the following business-driven questions:
