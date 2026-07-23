@@ -6,20 +6,17 @@
 
 ## Project Overview
 
-This project focuses on analyzing Netflix’s content library using SQL to uncover insights and Microsoft Excel for data visualization.
-The objective is to understand trends in content types, genres, release patterns, and market contributions to support data-driven decision 
-making.
+This project analyzes Netflix's content catalog using SQL (PostgreSQL) for data extraction and transformation, and Microsoft Excel for visualization- including pivot tables, a country×genre heatmap, and an interactive KPI dashboard. The goal is to understand how Netflix's content mix, genre composition, country contributions, ratings, and content characteristics have evolved over time, based entirely on catalog metadata (what titles were added and when- not viewership or engagement data).
 
 ## Problem Statement
 
-With the rapid growth of streaming platforms, understanding content trends, audience preferences, and regional production patterns has become essential for data-driven decision making.  
-Netflix continuously expands its content library, making it important to analyze how content types, genres, release trends, and country-wise contributions evolve over time.
+With the rapid growth of streaming platforms, understanding content trends and regional production patterns has become increasingly important for content strategy and planning. Netflix continuously expands its content library, making it valuable to analyze how content type, genre, ratings, and country-wise contributions have evolved over time.
 
-This project aims to analyze Netflix’s content dataset using SQL to identify meaningful insights that can support content acquisition and production strategy.
+This project uses SQL to query Netflix's content catalog and identify patterns that can inform discussions around content acquisition and catalog strategy.
 
 ## Dataset
 
-The dataset used in this project is sourced from Kaggle and contains information about Netflix movies and TV shows, including details such as title, type, genre, release year, country, rating, and date added to the platform.
+The dataset used in this project is sourced from Kaggle and contains metadata on Netflix Movies and TV Shows, including title, type, director, cast, country, date added, release year, rating, duration, and genre.
 
 **Dataset Link:**  
 https://www.kaggle.com/datasets/shivamb/netflix-shows
@@ -41,85 +38,150 @@ The dataset was imported into PostgreSQL and structured into a single table cont
 - listed_in (genre)  
 - description  
 
-Basic data cleaning was performed, including handling null values, standardizing formats, and splitting multi-value fields where required.
+Data cleaning performed:
+
+Converted date_added from text to a proper DATE type to enable year-based time-series analysis
+Identified and excluded 3 records where duration values ("66 min", "84 min", "74 min") had shifted into the rating field due to a source data misalignment
+Standardized NULL handling across country, rating, listed_in, and date_added fields
+Split multi-value fields (country, listed_in) using string-array functions where genre- or country-level analysis required it
+
+## Data Limitations
+
+This is a catalog/metadata dataset- it does not include viewing hours, completion rates, subscriber retention, or revenue. Because of this:
+
+- All findings describe what Netflix added to its catalog and when- not what audiences watched, finished, or responded to. Terms like "growth," "share," and "dominance" refer to catalog composition, not audience engagement or content performance.
+- Country and listed_in (genre) are Netflix's own multi-value tags, not audience-derived categories. Where both are unnested together (country × genre analysis), the result is a cross-product- a title tagged with 2 countries and 3 genres contributes to 6 combinations. This is called out explicitly where it applies.
+- Years with very low title counts were excluded from percentage-based trend charts, since small samples produce unstable, non-representative percentages. Specific cutoffs are noted in each relevant analysis.
+- date_added (when Netflix added a title to its catalog) and release_year (when a title was originally produced/released) are distinct fields, used deliberately depending on the question — see the note under each analysis section.
 
 ## SQL Techniques Used
 
-- Data filtering using WHERE conditions  
-- Aggregations using COUNT, AVG, and GROUP BY  
-- Subqueries for layered analysis  
-- Common Table Expressions (CTEs)  
-- Window functions for ranking and comparison  
-- String functions for splitting multi-value columns  
-- Date functions for time-based analysis  
+- Data filtering using WHERE conditions
+- Aggregation using COUNT, AVG, and GROUP BY
+- Window functions (SUM() OVER (PARTITION BY...) for year-over-year percentage shares)
+- String functions (STRING_TO_ARRAY, UNNEST) for splitting multi-value fields (country, listed_in)
+- Date functions (EXTRACT(YEAR FROM date_added)) for time-based analysis
+- Subqueries for filtering based on aggregated results (e.g., identifying top-volume years)
 
-## Business Questions
+## Methodology Notes
+
+date_added vs. release_year: These fields answer different questions and were used deliberately:
+
+- date_added (when Netflix added a title to its catalog) was used for any question about Netflix's acquisition/catalog behavior- content mix over time, country contribution over time, mature-content share over time, and peak addition years.
+- release_year (when a title was originally produced) was used only for the duration/runtime analysis, since that question is about content vintage, not when Netflix acquired it.
+
+Small-sample exclusions: Years with very few titles produce unstable percentages (e.g., a single title added in a year makes that year's "% share" swing to 0% or 100%). The following cutoffs were applied to trend-based charts:
+
+## Business Questions and Analysis
 
 This analysis aims to answer the following business-driven questions:
 
-1. What is the overall distribution of Movies versus TV Shows on Netflix?  
-2. How has Netflix’s content addition trend changed over the years?  
-3. Which genres dominate Netflix’s content catalog?  
-4. Are certain genres more commonly produced as TV Shows rather than Movies?  
-5. Which countries contribute the highest number of titles on Netflix?  
-6. How has country-wise content production evolved over time?  
-7. What content ratings (TV-MA, PG-13, etc.) are most prevalent on the platform?  
-8. Is Netflix increasingly focusing on mature audience content?  
-9. What is the average release year distribution of Netflix content?  
-10. Which directors have contributed the most content to Netflix?  
-11. Which actors appear most frequently across Netflix titles?  
-12. What proportion of Netflix content consists of documentaries?  
-13. How does content duration vary across Movies and TV Shows?  
-14. Which time periods saw major spikes in Netflix content expansion?  
-15. What content characteristics are commonly associated with high-volume production?
+Q1: How has the Movie-to-TV-Show mix of Netflix's catalog changed over time?
 
-## Analysis & Visual Insights
+[Chart: Movies vs TV Shows Share of Netflix Additions]
 
-### Movies vs TV Shows Trend by Year
-![Movies vs TV Shows Trend](/Movies_vs_tvshows.png)
+Note: Based on date_added (year Netflix added each title), not release_year. Years prior to 2013 were excluded due to very low title counts, which made percentage calculations unstable and non-representative.
 
-- Netflix content additions remained minimal until 2015, after which there is a sharp surge.
-- Movie additions peaked at around 700–750 titles per year, while TV Shows crossed approximately 400 titles, indicating aggressive content expansion.
-- While Movies dominated initially, the faster growth rate of TV Shows highlights a strategic shift toward episodic and binge-worthy content.
+Findings:
 
-### Top Genres on Netflix
-![Top Genres](/Top_genres.png)
+Movies have consistently made up the larger share of Netflix's yearly additions, but that share has trended downward — from a peak of 79.2% in 2014 to 66.3% by 2021.
+TV Shows' share correspondingly grew from a low of 20.8% in 2014 to 33.7% by 2021, its highest point in this window.
+The shift has not been linear: Movie share dipped as early as 2016 (59%) before partially recovering through 2018 (75%), then resuming its gradual decline.
+Despite the shift toward TV Shows, Movies remained the majority of additions in every year observed — the catalog mix has moved toward more balance, not toward TV Show dominance.
 
-- International Drama leads with approximately 350+ titles, followed closely by Documentaries and Stand-Up Comedy.
-- Multiple genres such as Kids TV and Family Movies each contribute around 200+ titles, indicating diversified content offerings.
-- The distribution reflects Netflix’s strategy to balance high-demand genres with niche audience segments.
+Q2: Which genres dominate Netflix's catalog, and how does genre composition differ by country?
 
-### Top Content Producing Countries
-![Top Countries](content_producing_countries.png)
+[Chart: Top 10 Genres in Netflix's Catalog]
+[Chart: Country × Genre Heatmap — India, South Korea, UK, United States]
 
-- The United States contributes over 50% of total content, making it the dominant production hub.
-- India follows with approximately 18%, while the United Kingdom contributes around 8% of total titles.
-- Other countries individually contribute less than 5%, showing a concentration of content production in a few key markets.
+Note: Genre counts reflect tag frequency, not title count — most titles carry multiple genre tags (listed_in is multi-value), so totals exceed the number of unique titles. The country × genre breakdown further unnests both fields together, creating a cross-product: a title tagged with 2 countries and 3 genres contributes to 6 country-genre combinations. Totals here should be read as "how often this combination appears," not as unique title counts.
+
+Findings:
+
+- International Movies (2,752) and Dramas (2,427) are the two most frequently tagged genres in the catalog, followed by Comedies (1,674) and International TV Shows (1,351).
+- Movie-oriented genre tags dominate the top 10 overall— 6 of the top 10 genres are Movie-flavored (International Movies, Dramas, Comedies, Action & Adventure, Independent Movies, Children & Family Movies) versus TV-flavored tags further down the list- consistent with Q1's finding that Movies still make up the majority of the catalog.
+- Genre composition varies notably by country: India's catalog leans more heavily toward Action & Adventure (130 titles) relative to its overall size compared to South Korea (16) or the UK (52), and also carries a larger Comedies count (271) than the other three countries combined.
+- Dramas is the most consistently represented genre across all four countries, appearing as a leading category in India, the UK, and the US alike.
+
+Q3: Which countries contribute the most content, and has that concentration changed over time?
+
+[Chart: Country Share of Netflix Additions Over Time (2016–2021)]
+
+Note: Based on date_added. Limited to the top 4 contributing countries (United States, India, United Kingdom, South Korea) for readability; years prior to 2016 were excluded due to low title counts for several of these countries in earlier years.
+
+Findings:
+
+- The United States has consistently been the largest single contributor to Netflix's catalog additions, but its share has fluctuated rather than followed a clear trend — dropping from 37.7% (2016) to a low of 31.2% (2018), then rising back to 42.6% by 2021, its highest point in the window.
+- India's share peaked at 18.2% in 2018 before declining to 8.1% by 2021- a distinct rise-and-fall pattern, unlike the US's fluctuation.
+- The United Kingdom and South Korea each remained in the single digits throughout the period, with no substantial change in their relative contribution.
+- This data does not support a narrative of Netflix reducing its reliance on the US market. The most recent year in the dataset (2021) shows the highest US concentration observed across the entire 2016–2021 window.
+
+Q4: What content ratings are most common, and has mature-rated content grown as a share of additions?
+
+[Chart: Distribution of Content Ratings in Netflix's Catalog]
+[Chart: Mature-Rated Content as % of Yearly Additions]
+
+Note: Based on date_added for the trend chart. 3 records with corrupted rating values were excluded (see Data Limitations). Years prior to 2011 were excluded from the trend chart due to low title counts.
+
+Findings:
+
+- TV-MA is by far the most common rating in the catalog (3,207 titles), followed by TV-14 (2,160) and TV-PG (863) — mature and teen-oriented ratings substantially outnumber all-audience ratings like G (41) or TV-G (220).
+- Mature-rated content (TV-MA/R) rose sharply as a share of yearly additions in the early-to-mid 2010s, from 23.1% (2011) to a high of 50% (2014).
+- Since 2018, that share has plateaued in the 45-47% range and has shown a slight downward trend over the most recent three years observed (47.2% → 46.8% → 45.3%, 2018–2021).
+- The data shows a rise-then-plateau pattern, not continuous growth. Mature content's share of additions is not still climbing as of the most recent year in this dataset — it has leveled off and ticked slightly down.
+
+Q4: What content ratings are most common, and has mature-rated content grown as a share of additions?
+
+[Chart: Distribution of Content Ratings in Netflix's Catalog]
+[Chart: Mature-Rated Content as % of Yearly Additions]
+
+Note: Based on date_added for the trend chart. 3 records with corrupted rating values were excluded (see Data Limitations). Years prior to 2011 were excluded from the trend chart due to low title counts.
+
+Findings:
+
+- TV-MA is by far the most common rating in the catalog (3,207 titles), followed by TV-14 (2,160) and TV-PG (863)- mature and teen-oriented ratings substantially outnumber all-audience ratings like G (41) or TV-G (220).
+- Mature-rated content (TV-MA/R) rose sharply as a share of yearly additions in the early-to-mid 2010s, from 23.1% (2011) to a high of 50% (2014).
+- Since 2018, that share has plateaued in the 45-47% range and has shown a slight downward trend over the most recent three years observed (47.2% → 46.8% → 45.3%, 2018–2021).
+- The data shows a rise-then-plateau pattern, not continuous growth. Mature content's share of additions is not still climbing as of the most recent year in this dataset- it has leveled off and ticked slightly down.
+
+Moving to Q6 — using the confirmed numbers from the top-3-years table and the Movie/TV breakdown chart.
+
+Q6: Which years saw the highest volume of content additions, and were they driven more by Movies or TV Shows?
+
+[Chart: Movie vs TV Show Breakdown in Peak Addition Years]
+
+Note: Based on date_added. "Highest volume" here refers to raw totals, not year-over-year growth rate- a year can rank highly simply because Netflix's overall catalog was larger by then, not because it represented an unusual spike relative to prior years.
+
+Findings:
+
+- Netflix's three highest-volume addition years were 2018, 2019, and 2020 — notably consecutive, suggesting a concentrated period of catalog expansion rather than isolated spikes.
+- 2019 was the single highest year (2,016 titles added), followed by 2020 (1,879) and 2018 (1,649).
+- Movies consistently drove these peak years, outnumbering TV Show additions by roughly 2:1 to 3:1 in each of the three years- consistent with Q1's finding that Movies remain the majority of additions throughout the catalog's history.
 
 ### Key Insights
 
-- Netflix experienced rapid expansion after 2015, with content additions increasing multiple-fold, reflecting global scaling efforts.
-- There is a clear transition from movie-heavy content to increased investment in TV Shows, driven by engagement and retention strategies.
-- Content strategy is heavily centered around international and diverse genres to appeal to a global audience base.
-- The platform relies significantly on a few major markets (US, India), while gradually expanding into regional production.
-- Overall, Netflix is balancing large-scale global reach with localized storytelling to maximize audience engagement.
-
+- Movies remain the foundation of the catalog. They led every year of additions (Q1), dominate top genre tags (Q2), and drove peak-volume years by a 2:1–3:1 margin over TV Shows (Q6) — the mix is shifting toward TV Shows, but gradually, from a smaller base.
+- Not every trend is a clean, ongoing trajectory. US content share and mature-content share both rose, then plateaued or partially reversed- 2021 shows the highest US concentration in the window, and mature content's share has ticked down over the last three years (Q3, Q4).
+- Genre mix varies by country. India leans further into Action & Adventure and Comedies relative to its size than South Korea or the UK- regional strategy isn't uniform (Q2).
+- Content is trending shorter, on different timelines. Movie runtime is still declining as of the latest data; TV season counts dropped sharply pre-2011 but have been stable since (Q5).
+- Peak growth was concentrated, not gradual. The three highest-volume years (2018-2020) were consecutive, pointing to a defined expansion period rather than steady growth throughout (Q6).
+  
 ## Business Recommendations
 
-- Increase investment in TV Shows, as their growth trend (400+ titles annually) indicates higher engagement potential.
-- Continue expanding international content, especially in high-growth markets like India, to strengthen global reach.
-- Focus on high-performing genres such as International Drama (350+ titles) and Documentaries for better audience retention.
-- Reduce over-dependence on the US market (>50%) by diversifying production across more countries.
-- Use data-driven insights to tailor regional content strategies and improve market penetration.
+The following are strategic considerations suggested by catalog trends, not conclusions about audience demand or content performance — validating them would require viewership, retention, or revenue data this dataset doesn't include.
+
+- Track the Movie-to-TV-Show mix shift- TV Shows' share is growing gradually, worth monitoring going forward (Q1).
+- Investigate the recent US concentration uptick rather than assuming diversification is underway- 2021 shows the highest US share in the window (Q3).
+- Explore whether regional genre differences reflect intentional localization- e.g., India's skew toward Action & Adventure and Comedies (Q2).
+- Treat "shorter content" as two separate trends — movie runtimes are still declining, TV seasons have been stable for a decade (Q5).
+- Use the 2018-2020 expansion period as a planning reference to understand what drove that growth, and whether to replicate it (Q6).
 
 ## Why This Project Matters
 
-This project demonstrates how SQL-driven analysis can support strategic decision-making in content platforms by identifying trends, audience preferences, and growth opportunities.
+This project demonstrates how SQL and Excel can be used together to extract, clean, and analyze real-world catalog data- including handling data quality issues, choosing the correct time field for each question, and being explicit about what conclusions the data can and cannot support. These are foundational skills for any data analysis work, not just streaming platforms.
 
 ## Conclusion
 
-This project demonstrates how SQL and Microsoft Excel can be effectively used to analyze large-scale content datasets and generate actionable business insights. By performing structured querying in PostgreSQL and visualizing trends using Excel, key patterns in Netflix’s content strategy were identified.
+This analysis examined Netflix's content catalog across six questions covering content mix, genre and country composition, ratings, duration, and growth patterns. The catalog has shifted gradually toward TV Shows while Movies remain dominant, genre and country contributions vary in ways that don't always follow a single clean trend, and content length has trended shorter on different timelines for Movies versus TV Shows.
 
-The analysis revealed rapid content expansion after 2015, a strategic shift toward TV Shows, strong dominance of international and drama-based genres, and heavy reliance on major production markets like the United States and India.
-
-These findings highlight Netflix’s focus on global scalability, audience engagement, and diversified content offerings. Overall, this project showcases the practical application of data analysis techniques in supporting data-driven decision making within the entertainment industry.
+Because this dataset covers catalog metadata only, these findings describe what Netflix added to its library and when- they are a starting point for strategic questions, not a substitute for viewership or performance data. Any next step from here would pair these catalog patterns with engagement or retention data to determine which parts of the catalog strategy are actually working.
