@@ -86,10 +86,10 @@ Note: Based on date_added (year Netflix added each title), not release_year. Yea
 
 Findings:
 
-Movies have consistently made up the larger share of Netflix's yearly additions, but that share has trended downward — from a peak of 79.2% in 2014 to 66.3% by 2021.
-TV Shows' share correspondingly grew from a low of 20.8% in 2014 to 33.7% by 2021, its highest point in this window.
-The shift has not been linear: Movie share dipped as early as 2016 (59%) before partially recovering through 2018 (75%), then resuming its gradual decline.
-Despite the shift toward TV Shows, Movies remained the majority of additions in every year observed — the catalog mix has moved toward more balance, not toward TV Show dominance.
+- Movies have consistently made up the larger share of Netflix's yearly additions, but that share has trended downward — from a peak of 79.2% in 2014 to 66.3% by 2021.
+- TV Shows' share correspondingly grew from a low of 20.8% in 2014 to 33.7% by 2021, its highest point in this window.
+- The shift has not been linear: Movie share dipped as early as 2016 (59%) before partially recovering through 2018 (75%), then resuming its gradual decline.
+- Despite the shift toward TV Shows, Movies remained the majority of additions in every year observed — the catalog mix has moved toward more balance, not toward TV Show dominance.
 
 Q2: Which genres dominate Netflix's catalog, and how does genre composition differ by country?
 
@@ -123,16 +123,16 @@ Q4: What content ratings are most common, and has mature-rated content grown as 
 
 ![Distribution of Content Ratings](Q4bcontentdistribution.png)
 
-![Mature-Rated Content as % of Yearly Additions](Q4maturaratedcontent.png)
+![Mature-Rated Content as % of Yearly Additions](Q4matureratedcontent.png)
 
 Note: Based on date_added for the trend chart. 3 records with corrupted rating values were excluded (see Data Limitations). Years prior to 2011 were excluded from the trend chart due to low title counts.
 
 Findings:
 
-- TV-MA is by far the most common rating in the catalog (3,207 titles), followed by TV-14 (2,160) and TV-PG (863) — mature and teen-oriented ratings substantially outnumber all-audience ratings like G (41) or TV-G (220).
+- TV-MA is by far the most common rating in the catalog (3,207 titles), followed by TV-14 (2,160) and TV-PG (863)- mature and teen-oriented ratings substantially outnumber all-audience ratings like G (41) or TV-G (220).
 - Mature-rated content (TV-MA/R) rose sharply as a share of yearly additions in the early-to-mid 2010s, from 23.1% (2011) to a high of 50% (2014).
 - Since 2018, that share has plateaued in the 45-47% range and has shown a slight downward trend over the most recent three years observed (47.2% → 46.8% → 45.3%, 2018–2021).
-- The data shows a rise-then-plateau pattern, not continuous growth. Mature content's share of additions is not still climbing as of the most recent year in this dataset — it has leveled off and ticked slightly down.
+- The data shows a rise-then-plateau pattern, not continuous growth. Mature content's share of additions is not still climbing as of the most recent year in this dataset- it has leveled off and ticked slightly down.
 
 Q5: How does content duration differ by release vintage?
 
@@ -172,12 +172,12 @@ Findings:
   
 ## Business Recommendations
 
-The following are strategic considerations suggested by catalog trends, not conclusions about audience demand or content performance — validating them would require viewership, retention, or revenue data this dataset doesn't include.
+The following are strategic considerations suggested by catalog trends, not conclusions about audience demand or content performance- validating them would require viewership, retention, or revenue data this dataset doesn't include.
 
 - Track the Movie-to-TV-Show mix shift- TV Shows' share is growing gradually, worth monitoring going forward (Q1).
 - Investigate the recent US concentration uptick rather than assuming diversification is underway- 2021 shows the highest US share in the window (Q3).
 - Explore whether regional genre differences reflect intentional localization- e.g., India's skew toward Action & Adventure and Comedies (Q2).
-- Treat "shorter content" as two separate trends — movie runtimes are still declining, TV seasons have been stable for a decade (Q5).
+- Treat "shorter content" as two separate trends- movie runtimes are still declining, TV seasons have been stable for a decade (Q5).
 - Use the 2018-2020 expansion period as a planning reference to understand what drove that growth, and whether to replicate it (Q6).
 
 ## Why This Project Matters
