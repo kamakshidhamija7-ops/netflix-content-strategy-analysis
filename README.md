@@ -196,3 +196,9 @@ This project demonstrates how SQL and Excel can be used together to extract, cle
 This analysis examined Netflix's content catalog across six questions covering content mix, genre and country composition, ratings, duration, and growth patterns. The catalog has shifted gradually toward TV Shows while Movies remain dominant, genre and country contributions vary in ways that don't always follow a single clean trend, and content length has trended shorter on different timelines for Movies versus TV Shows.
 
 Because this dataset covers catalog metadata only, these findings describe what Netflix added to its library and when- they are a starting point for strategic questions, not a substitute for viewership or performance data. Any next step from here would pair these catalog patterns with engagement or retention data to determine which parts of the catalog strategy are actually working.
+
+## Files in this Repo
+- `NetflixAnalysis.sql`- all 6 SQL queries used in this analysis.
+- `NetflixStrategy.xlsx`- full Excel workbook with pivot tables, country×genre heatmap, and interactive dashboard.
+- `titles(in).csv`- cleaned dataset used for this analysis.
+- Chart images referenced throughout this README.
