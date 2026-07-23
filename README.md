@@ -8,6 +8,8 @@
 
 This project analyzes Netflix's content catalog using SQL (PostgreSQL) for data extraction and transformation, and Microsoft Excel for visualization- including pivot tables, a country×genre heatmap, and an interactive KPI dashboard. The goal is to understand how Netflix's content mix, genre composition, country contributions, ratings, and content characteristics have evolved over time, based entirely on catalog metadata (what titles were added and when- not viewership or engagement data).
 
+![Netflix Content Strategy Dashboard](kpi.png)
+
 ## Problem Statement
 
 With the rapid growth of streaming platforms, understanding content trends and regional production patterns has become increasingly important for content strategy and planning. Netflix continuously expands its content library, making it valuable to analyze how content type, genre, ratings, and country-wise contributions have evolved over time.
@@ -78,7 +80,7 @@ This analysis aims to answer the following business-driven questions:
 
 Q1: How has the Movie-to-TV-Show mix of Netflix's catalog changed over time?
 
-[Chart: Movies vs TV Shows Share of Netflix Additions]
+![Movies vs TV Shows Share of Netflix Additions](Q1moviesvstvshows.png)
 
 Note: Based on date_added (year Netflix added each title), not release_year. Years prior to 2013 were excluded due to very low title counts, which made percentage calculations unstable and non-representative.
 
@@ -91,8 +93,9 @@ Despite the shift toward TV Shows, Movies remained the majority of additions in 
 
 Q2: Which genres dominate Netflix's catalog, and how does genre composition differ by country?
 
-[Chart: Top 10 Genres in Netflix's Catalog]
-[Chart: Country × Genre Heatmap — India, South Korea, UK, United States]
+![Top 10 Genres in Netflix's Catalog](Q2atop10genres.png)
+
+![Country x Genre Heatmap](Q2heatmap.png)
 
 Note: Genre counts reflect tag frequency, not title count — most titles carry multiple genre tags (listed_in is multi-value), so totals exceed the number of unique titles. The country × genre breakdown further unnests both fields together, creating a cross-product: a title tagged with 2 countries and 3 genres contributes to 6 country-genre combinations. Totals here should be read as "how often this combination appears," not as unique title counts.
 
@@ -105,7 +108,7 @@ Findings:
 
 Q3: Which countries contribute the most content, and has that concentration changed over time?
 
-[Chart: Country Share of Netflix Additions Over Time (2016–2021)]
+![Country Share of Netflix Additions Over Time](Q3countryshare.png)
 
 Note: Based on date_added. Limited to the top 4 contributing countries (United States, India, United Kingdom, South Korea) for readability; years prior to 2016 were excluded due to low title counts for several of these countries in earlier years.
 
@@ -118,8 +121,9 @@ Findings:
 
 Q4: What content ratings are most common, and has mature-rated content grown as a share of additions?
 
-[Chart: Distribution of Content Ratings in Netflix's Catalog]
-[Chart: Mature-Rated Content as % of Yearly Additions]
+![Distribution of Content Ratings](Q4bcontentdistribution.png)
+
+![Mature-Rated Content as % of Yearly Additions](Q4maturaratedcontent.png)
 
 Note: Based on date_added for the trend chart. 3 records with corrupted rating values were excluded (see Data Limitations). Years prior to 2011 were excluded from the trend chart due to low title counts.
 
@@ -130,37 +134,37 @@ Findings:
 - Since 2018, that share has plateaued in the 45-47% range and has shown a slight downward trend over the most recent three years observed (47.2% → 46.8% → 45.3%, 2018–2021).
 - The data shows a rise-then-plateau pattern, not continuous growth. Mature content's share of additions is not still climbing as of the most recent year in this dataset — it has leveled off and ticked slightly down.
 
-Q4: What content ratings are most common, and has mature-rated content grown as a share of additions?
+Q5: How does content duration differ by release vintage?
 
-[Chart: Distribution of Content Ratings in Netflix's Catalog]
-[Chart: Mature-Rated Content as % of Yearly Additions]
+![Average Movie Runtime by Release Year](Q5avgruntimemovie.png)
 
-Note: Based on date_added for the trend chart. 3 records with corrupted rating values were excluded (see Data Limitations). Years prior to 2011 were excluded from the trend chart due to low title counts.
+![Average Number of Seasons by Release Year (TV Shows)](Q5avgruntimetvshows.png)
+
+Note: Based on release_year (content vintage), not date_added- this question is about the content itself, not when Netflix acquired it. Titles released before 2000 were excluded due to very low annual volume, which produced unstable averages even when grouped into multi-year bins. Data is grouped into 5-year bins to smooth year-to-year noise.
 
 Findings:
 
-- TV-MA is by far the most common rating in the catalog (3,207 titles), followed by TV-14 (2,160) and TV-PG (863)- mature and teen-oriented ratings substantially outnumber all-audience ratings like G (41) or TV-G (220).
-- Mature-rated content (TV-MA/R) rose sharply as a share of yearly additions in the early-to-mid 2010s, from 23.1% (2011) to a high of 50% (2014).
-- Since 2018, that share has plateaued in the 45-47% range and has shown a slight downward trend over the most recent three years observed (47.2% → 46.8% → 45.3%, 2018–2021).
-- The data shows a rise-then-plateau pattern, not continuous growth. Mature content's share of additions is not still climbing as of the most recent year in this dataset- it has leveled off and ticked slightly down.
-
-Moving to Q6 — using the confirmed numbers from the top-3-years table and the Movie/TV breakdown chart.
+- Average movie runtime has declined steadily and consistently, from 115.3 minutes (2000-2002) to 94.5 minutes (2018-2021)- a drop of roughly 20 minutes, or about 18%, over two decades.
+- Average TV show season count followed a different pattern: it fell sharply from 2.6 seasons (2000-2002) to a low of 1.4 (2009-2011), then stabilized around 1.7 seasons through 2021- the decline was concentrated in the earlier period rather than ongoing.
+- Both formats show a "shorter content" pattern overall, but on different timelines: movie runtime has continued shrinking through the most recent bin, while TV season count leveled off roughly a decade ago.
 
 Q6: Which years saw the highest volume of content additions, and were they driven more by Movies or TV Shows?
 
-[Chart: Movie vs TV Show Breakdown in Peak Addition Years]
+![Years with Highest Content Additions](Q6additionyears.png)
+
+![Movie vs TV Show Breakdown in Peak Addition Years](Q6highestcontentadd.png)
 
 Note: Based on date_added. "Highest volume" here refers to raw totals, not year-over-year growth rate- a year can rank highly simply because Netflix's overall catalog was larger by then, not because it represented an unusual spike relative to prior years.
 
 Findings:
 
-- Netflix's three highest-volume addition years were 2018, 2019, and 2020 — notably consecutive, suggesting a concentrated period of catalog expansion rather than isolated spikes.
+- Netflix's three highest-volume addition years were 2018, 2019, and 2020- notably consecutive, suggesting a concentrated period of catalog expansion rather than isolated spikes.
 - 2019 was the single highest year (2,016 titles added), followed by 2020 (1,879) and 2018 (1,649).
 - Movies consistently drove these peak years, outnumbering TV Show additions by roughly 2:1 to 3:1 in each of the three years- consistent with Q1's finding that Movies remain the majority of additions throughout the catalog's history.
 
 ### Key Insights
 
-- Movies remain the foundation of the catalog. They led every year of additions (Q1), dominate top genre tags (Q2), and drove peak-volume years by a 2:1–3:1 margin over TV Shows (Q6) — the mix is shifting toward TV Shows, but gradually, from a smaller base.
+- Movies remain the foundation of the catalog. They led every year of additions (Q1), dominate top genre tags (Q2), and drove peak-volume years by a 2:1–3:1 margin over TV Shows (Q6)- the mix is shifting toward TV Shows, but gradually, from a smaller base.
 - Not every trend is a clean, ongoing trajectory. US content share and mature-content share both rose, then plateaued or partially reversed- 2021 shows the highest US concentration in the window, and mature content's share has ticked down over the last three years (Q3, Q4).
 - Genre mix varies by country. India leans further into Action & Adventure and Comedies relative to its size than South Korea or the UK- regional strategy isn't uniform (Q2).
 - Content is trending shorter, on different timelines. Movie runtime is still declining as of the latest data; TV season counts dropped sharply pre-2011 but have been stable since (Q5).
